@@ -1,0 +1,846 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap');
+
+/* ==========================================================================
+   ACADEMY OF EXCELLENCE - PORTAL SKIN  v5
+
+   FIXED IN THIS VERSION
+   1. Module dropdown icons stacked above their label. The li > div wrapper
+      holds the icon div and the text div as siblings; it was display:block,
+      so they stacked. Now flex.
+   2. Host card was broken. Kartra's profile_box_template_5 positions
+      .info-area as an absolute overlay on the photo, and my overflow:hidden
+      was clipping the YouTube and email icons off the card edge. That card's
+      layout is now rebuilt explicitly instead of nudged.
+   3. Progress "4 of 8" misaligned. The inner span.d-flex defaults to
+      align-items:stretch, so the small "of" floated to the top of the 20px
+      numerals. Now baseline.
+   4. Grayscale-on-hover removed from the host photo.
+
+   ADDED
+   5. Numbered lessons in the sidebar. Lessons are a real sequence, so the
+      numbering carries information rather than decorating.
+   6. A yellow rule above the lesson title, tying the page to the sales page.
+   7. Tighter video frame and a hover state on lesson rows that reads as a
+      selection rather than a highlight.
+
+   NOTHING HERE CHANGES MARKUP OR BEHAVIOUR. Video iframe, watch tracking,
+   progress bar, favourites, language picker, login, logout, search all stay
+   native Kartra.
+   ========================================================================== */
+
+:root {
+  --aoe-y:            #FFD700;
+  --aoe-y-dim:        #A88E00;
+  --aoe-ink-on-y:     #0a0900;
+
+  --aoe-black:        #000000;
+  --aoe-panel:        #0A0A0A;
+  --aoe-panel-hover:  #131313;
+  --aoe-rule:         #262626;
+  --aoe-rule-bright:  #3D3D3D;
+
+  --aoe-ink:          #FFFFFF;
+  --aoe-mid:          #BDBDBD;
+  --aoe-dim:          #8F8F8F;
+
+  --aoe-head:         'Oswald', Impact, sans-serif;
+  --aoe-body:         'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   0. BASE
+   -------------------------------------------------------------------------- */
+
+body {
+  background: var(--aoe-black) !important;
+  color: var(--aoe-ink);
+  font-family: var(--aoe-body);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container_layout_2_col_left { padding-bottom: 120px; }
+
+.panel,
+.panel-blank,
+.panel-kartra,
+.sidebar_box,
+.menu_box .panel-body,
+.progress_box .panel-body,
+.sidebar_box .panel-body {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   1. TOP BAR
+   -------------------------------------------------------------------------- */
+
+header.mb-6 { margin-bottom: 0 !important; }
+
+header nav.navbar-kartra,
+header nav.navbar-kartra.light {
+  background: var(--aoe-black) !important;
+  border: none !important;
+  margin-bottom: 0 !important;
+}
+
+.navbar-header img#image_logo { max-height: 42px; width: auto; }
+
+header .navbar-nav.navbar-right > li > a,
+header .navbar-nav.navbar-right > li > a i {
+  color: var(--aoe-dim) !important;
+  background: transparent !important;
+  transition: color .15s ease;
+}
+
+header .navbar-nav.navbar-right > li > a:hover,
+header .navbar-nav.navbar-right > li > a:hover i { color: var(--aoe-y) !important; }
+
+header .navbar-nav .dropdown-menu,
+.language_dropdown_li .dropdown-menu,
+.js_favorites_li .dropdown-menu {
+  background: var(--aoe-panel) !important;
+  border: 1px solid var(--aoe-rule) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, .85) !important;
+}
+
+header .navbar-nav .dropdown-menu a,
+header .navbar-nav .dropdown-menu li { color: var(--aoe-mid) !important; }
+
+header .navbar-nav .dropdown-menu a:hover {
+  background: rgba(255, 215, 0, .08) !important;
+  color: var(--aoe-ink) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. MODULE NAV  -  header > div.menu
+   -------------------------------------------------------------------------- */
+
+header .menu {
+  background: var(--aoe-black) !important;
+  border-top: 1px solid var(--aoe-rule);
+  border-bottom: 1px solid var(--aoe-rule);
+  margin-bottom: 64px;
+}
+
+header .menu > .container,
+header .menu .row,
+header .menu .col-12 { background: transparent !important; }
+
+header .menu ul.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 30px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header .menu ul.nav > li {
+  float: none !important;
+  position: relative;
+  background: transparent !important;
+}
+
+header .menu ul.nav > li > a,
+header .menu ul.nav > li > a.dropdown-toggle {
+  display: block;
+  padding: 18px 0 !important;
+  background: transparent !important;
+  border-bottom: 2px solid transparent;
+  font-family: var(--aoe-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  color: var(--aoe-dim) !important;
+  transition: color .15s ease;
+}
+
+header .menu ul.nav > li > a:hover { color: var(--aoe-ink) !important; }
+
+header .menu ul.nav > li.active > a,
+header .menu ul.nav > li.active > a.dropdown-toggle {
+  color: var(--aoe-ink) !important;
+  font-weight: 600;
+  border-bottom-color: var(--aoe-y);
+}
+
+header .menu ul.nav .caret { border-top-color: var(--aoe-dim); }
+
+/* -- Module dropdown -- */
+
+header .menu ul.dropdown-menu.js_menu {
+  background: var(--aoe-panel) !important;
+  border: 1px solid var(--aoe-rule) !important;
+  border-radius: 0 !important;
+  padding: 0;
+  min-width: 300px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, .9) !important;
+}
+
+header .menu ul.dropdown-menu.js_menu > li {
+  border-bottom: 1px solid rgba(38, 38, 38, .7);
+  background: transparent !important;
+}
+
+header .menu ul.dropdown-menu.js_menu > li:last-child { border-bottom: none; }
+
+/* FIX 1: the li > div wrapper holds icon and text as siblings.
+   It was block, so the star stacked above the label. */
+header .menu ul.dropdown-menu.js_menu > li > div {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px !important;
+  background: transparent !important;
+  transition: background .15s ease;
+}
+
+header .menu ul.dropdown-menu.js_menu > li:hover > div {
+  background: rgba(255, 215, 0, .07) !important;
+}
+
+header .menu ul.dropdown-menu.js_menu .js_menu_icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  width: 16px;
+}
+
+header .menu ul.dropdown-menu.js_menu .js_menu_icon i {
+  font-size: 12px;
+  color: var(--aoe-y-dim) !important;
+}
+
+header .menu ul.dropdown-menu.js_menu .menu_name,
+header .menu ul.dropdown-menu.js_menu .dropdown_desc {
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--aoe-mid) !important;
+  text-align: left;
+}
+
+header .menu ul.dropdown-menu.js_menu > li:hover .menu_name { color: var(--aoe-ink) !important; }
+
+header .menu ul.dropdown-menu.js_menu .menu_subdesc {
+  color: var(--aoe-dim) !important;
+  font-size: 12px;
+}
+
+header .menu ul.dropdown-menu.js_menu .glyphicon-ok,
+header .menu ul.dropdown-menu.js_menu .check-mark { color: var(--aoe-y) !important; }
+
+/* --------------------------------------------------------------------------
+   3. SIDEBAR - LESSON LIST
+   -------------------------------------------------------------------------- */
+
+.menu_box {
+  border: 1px solid var(--aoe-rule) !important;
+  background: var(--aoe-panel) !important;
+  margin-bottom: 24px;
+}
+
+.menu_box .panel-heading {
+  border-bottom: 1px solid var(--aoe-rule) !important;
+  padding: 22px 22px 18px !important;
+  background: transparent !important;
+}
+
+.menu_box h2.js_post_menu_content_title {
+  font-family: var(--aoe-head);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: .005em;
+  text-transform: uppercase;
+  color: var(--aoe-ink) !important;
+  margin: 0;
+}
+
+.menu_box .panel-body { padding: 0 !important; }
+
+/* ADD 5: lessons are an ordered sequence, so number them. */
+ul.nav_post_menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: aoe-lesson;
+}
+
+ul.nav_post_menu > li,
+li.post_menu_li {
+  counter-increment: aoe-lesson;
+  border-bottom: 1px solid rgba(38, 38, 38, .6);
+  background: transparent !important;
+}
+
+ul.nav_post_menu > li:last-child { border-bottom: none; }
+
+ul.nav_post_menu > li > a,
+li.post_menu_li > a {
+  display: flex !important;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 20px !important;
+  background: transparent !important;
+  border-left: 2px solid transparent;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--aoe-dim) !important;
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+
+ul.nav_post_menu > li > a::before {
+  content: counter(aoe-lesson, decimal-leading-zero);
+  flex: 0 0 auto;
+  font-family: var(--aoe-head);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--aoe-rule-bright);
+  transition: color .15s ease;
+}
+
+ul.nav_post_menu > li > a:hover {
+  background: rgba(255, 255, 255, .03) !important;
+  border-left-color: var(--aoe-rule-bright);
+  color: var(--aoe-ink) !important;
+}
+
+ul.nav_post_menu > li > a:hover::before { color: var(--aoe-dim); }
+
+ul.nav_post_menu > li > a .menu_name,
+ul.nav_post_menu > li > a .js_menu_item_name {
+  flex: 1 1 auto;
+  color: inherit !important;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+ul.nav_post_menu > li.active > a,
+li.post_menu_li.active > a {
+  background: rgba(255, 215, 0, .06) !important;
+  border-left-color: var(--aoe-y);
+  color: var(--aoe-ink) !important;
+}
+
+ul.nav_post_menu > li.active > a::before { color: var(--aoe-y); }
+
+ul.nav_post_menu > li.active > a .menu_name,
+ul.nav_post_menu > li.active > a .js_menu_item_name { font-weight: 600; }
+
+ul.nav_post_menu .glyphicon-ok,
+ul.nav_post_menu .check-mark,
+ul.nav_post_menu [class*="kartraico-check"] {
+  color: var(--aoe-y) !important;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------------------------
+   4. SIDEBAR - PROGRESS  (native; Kartra writes the width %)
+   -------------------------------------------------------------------------- */
+
+.progress_box {
+  border: 1px solid var(--aoe-rule) !important;
+  background: var(--aoe-panel) !important;
+  margin-bottom: 24px;
+}
+
+.progress_box .panel-heading {
+  padding: 22px 22px 14px !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.progress_box .panel-heading h3 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0;
+  font-family: var(--aoe-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--aoe-dim) !important;
+}
+
+/* FIX 3: the inner span.d-flex defaulted to align-items:stretch, which
+   floated the small "of" to the top of the 20px numerals. */
+.progress_box .panel-heading h3 > span.d-flex {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 6px;
+  line-height: 1;
+}
+
+.progress_box .panel-heading h3 strong {
+  font-family: var(--aoe-head);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--aoe-y);
+}
+
+.progress_box .panel-heading h3 .mx-1 {
+  margin: 0 !important;
+  font-size: 11px;
+  letter-spacing: .08em;
+  line-height: 1;
+  color: var(--aoe-dim);
+}
+
+.progress_box .panel-body { padding: 0 22px 22px !important; }
+
+.progress_bar {
+  background: #1A1A1A !important;
+  border-radius: 0 !important;
+  height: 3px;
+  overflow: hidden;
+}
+
+.progress_bar_inner {
+  background: var(--aoe-y) !important;
+  border-radius: 0 !important;
+  height: 100%;
+  transition: width .4s ease;
+}
+
+/* --------------------------------------------------------------------------
+   5. SIDEBAR - HOST CARD
+   FIX 2: profile_box_template_5 positions .info-area as an absolute overlay
+   on the photo. Rebuilt as a plain stacked card. overflow is now visible so
+   the YouTube and email icons stop being clipped off the card edge.
+   -------------------------------------------------------------------------- */
+
+.sidebar_box.profile_box_template_5 {
+  border: 1px solid var(--aoe-rule) !important;
+  background: var(--aoe-panel) !important;
+  overflow: visible !important;
+  margin-bottom: 24px;
+  position: relative !important;
+}
+
+.sidebar_box.light_bg,
+.sidebar_box.light_bg .panel-body,
+.sidebar_box .panel-body {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: none !important;
+  padding: 0 !important;
+  display: block !important;
+  position: static !important;
+}
+
+.sidebar_box .img-area {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+
+/* FIX 4: grayscale-on-hover removed. */
+.sidebar_box .img-area img.js_instructor_box_image {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  filter: none !important;
+  transform: none !important;
+  object-fit: cover;
+}
+
+.sidebar_box .info-area,
+.info-area {
+  position: static !important;
+  display: block !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 20px 22px 22px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  text-align: left !important;
+  overflow: visible !important;
+}
+
+.sidebar_box h3.js_instructor_box_name,
+h3.js_instructor_box_name {
+  display: block !important;
+  visibility: visible !important;
+  font-family: var(--aoe-head);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: .98;
+  text-transform: uppercase;
+  color: var(--aoe-ink) !important;
+  margin: 0 0 6px !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+.sidebar_box p.instructor_desc,
+p.instructor_desc {
+  display: block !important;
+  font-family: var(--aoe-body);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--aoe-dim) !important;
+  margin: 0 0 16px !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+/* Note: Kartra hides unused socials with an inline display:none on the li.
+   No display rule is set on li here, or !important would un-hide them. */
+.sidebar_box ul.social_list,
+ul.social_list {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none;
+  position: static !important;
+  justify-content: flex-start !important;
+}
+
+.profile_box_icons_circle ul.social_list li a,
+ul.social_list li a {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: transparent !important;
+  border: 1px solid var(--aoe-rule) !important;
+  border-radius: 0 !important;
+  color: var(--aoe-dim) !important;
+  transition: border-color .15s ease, color .15s ease;
+}
+
+ul.social_list li a i { color: inherit !important; font-size: 14px; }
+
+ul.social_list li a:hover,
+ul.social_list li a:hover i {
+  border-color: var(--aoe-y) !important;
+  color: var(--aoe-y) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. MAIN COLUMN - lesson title
+   Live markup: .panel-kartra > .panel-heading > h1 > span
+                                               + a#post_action_favorite
+   -------------------------------------------------------------------------- */
+
+.col-lg-8 .panel-kartra {
+  background: transparent !important;
+  border: none !important;
+}
+
+.col-lg-8 .panel-kartra > .panel-heading {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 0 28px !important;
+}
+
+/* ADD 6: yellow rule above the title, same device as the sales page. */
+.col-lg-8 .panel-kartra > .panel-heading::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 2px;
+  background: var(--aoe-y);
+  margin: 0 0 22px;
+}
+
+.col-lg-8 .panel-kartra > .panel-heading h1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--aoe-head) !important;
+  font-size: clamp(34px, 4.6vw, 58px) !important;
+  font-weight: 700 !important;
+  line-height: .98 !important;
+  letter-spacing: .005em !important;
+  text-transform: uppercase !important;
+  color: var(--aoe-ink) !important;
+  margin: 0 !important;
+  border: none !important;
+}
+
+.col-lg-8 .panel-kartra > .panel-heading h1 > span {
+  color: var(--aoe-ink) !important;
+  font: inherit !important;
+  text-transform: inherit !important;
+  border: none !important;
+}
+
+a#post_action_favorite.favourite_block {
+  flex: 0 0 auto;
+  color: var(--aoe-dim) !important;
+  font-size: 20px;
+  line-height: 1;
+  margin-top: 8px;
+  transition: color .15s ease;
+}
+
+a#post_action_favorite.favourite_block i { color: inherit !important; }
+a#post_action_favorite.favourite_block:hover { color: var(--aoe-y) !important; }
+
+.col-lg-8 .panel-kartra > .panel-body {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. MAIN COLUMN - native video and content
+   The video ships with inline width:580px on wrapper and iframe.
+   -------------------------------------------------------------------------- */
+
+#post_content_div .element_block[data-kt-type="video"],
+#post_content_div .element_block[td_type="video"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 44px !important;
+  border: 1px solid var(--aoe-rule);
+  background: #050505;
+}
+
+iframe.video_iframe {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+#post_content_div .element_block {
+  color: var(--aoe-mid);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+#post_content_div .element_block.wysiwyg_printout-def { max-width: 68ch; }
+#post_content_div .code_holder { max-width: 100%; }
+
+#post_content_div .element_block h2,
+#post_content_div .element_block h3 {
+  font-family: var(--aoe-head);
+  font-weight: 700;
+  line-height: .98;
+  text-transform: uppercase;
+  letter-spacing: .005em;
+  color: var(--aoe-ink);
+}
+
+#post_content_div .element_block a:not(.aoe-resource) {
+  color: var(--aoe-y);
+  border-bottom: 1px solid var(--aoe-y-dim);
+}
+
+/* --------------------------------------------------------------------------
+   8. LESSON BODY COMPONENTS
+   Paste into a Kartra custom code block under the native video.
+   -------------------------------------------------------------------------- */
+
+.aoe-body {
+  font-family: var(--aoe-body);
+  color: var(--aoe-mid);
+  max-width: 760px;
+  line-height: 1.6;
+}
+
+.aoe-brief {
+  border-left: 2px solid var(--aoe-y);
+  padding: 4px 0 4px 22px;
+  margin: 0 0 44px;
+}
+
+.aoe-brief p { font-size: 19px; line-height: 1.5; color: var(--aoe-ink); margin: 0; }
+
+.aoe-h {
+  font-family: var(--aoe-head);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: .98;
+  letter-spacing: .005em;
+  text-transform: uppercase;
+  color: var(--aoe-ink);
+  margin: 52px 0 20px;
+}
+
+.aoe-chapters { border-top: 1px solid var(--aoe-rule); margin: 0 0 44px; }
+
+.aoe-chapter {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--aoe-rule);
+}
+
+.aoe-chapter-time {
+  font-family: var(--aoe-head);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  color: var(--aoe-y);
+  flex: 0 0 54px;
+}
+
+.aoe-chapter-name { font-size: 16px; line-height: 1.4; color: var(--aoe-mid); }
+
+.aoe-actions { counter-reset: aoe-step; padding: 0; margin: 0 0 44px; list-style: none; }
+
+.aoe-actions li {
+  counter-increment: aoe-step;
+  position: relative;
+  padding: 0 0 22px 46px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--aoe-mid);
+}
+
+.aoe-actions li::before {
+  content: counter(aoe-step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--aoe-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--aoe-ink-on-y);
+  background: var(--aoe-y);
+}
+
+.aoe-actions strong { color: var(--aoe-ink); font-weight: 600; }
+
+.aoe-resources {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--aoe-rule);
+  border: 1px solid var(--aoe-rule);
+  margin: 0 0 44px;
+}
+
+.aoe-resource {
+  display: block;
+  background: var(--aoe-panel);
+  padding: 20px;
+  border: none !important;
+  transition: background .15s ease;
+}
+
+.aoe-resource:hover { background: var(--aoe-panel-hover); }
+
+.aoe-resource-name {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--aoe-ink);
+  margin-bottom: 4px;
+}
+
+.aoe-resource-meta { display: block; font-size: 13px; color: var(--aoe-dim); }
+
+.aoe-standard {
+  border: 1px solid var(--aoe-y-dim);
+  background: rgba(255, 215, 0, .05);
+  padding: 24px 26px;
+  margin: 0 0 44px;
+}
+
+.aoe-standard-title {
+  font-family: var(--aoe-head);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--aoe-y);
+  margin: 0 0 10px;
+}
+
+.aoe-standard p { font-size: 16px; line-height: 1.6; color: var(--aoe-ink); margin: 0; }
+
+/* --------------------------------------------------------------------------
+   9. MODALS (native teaser and progress badge)
+   -------------------------------------------------------------------------- */
+
+#teaser_modal .modal-content,
+#badge_modal .modal-content {
+  background: var(--aoe-panel) !important;
+  border: 1px solid var(--aoe-rule) !important;
+  border-radius: 0 !important;
+  color: var(--aoe-mid);
+}
+
+#teaser_modal .modal-body,
+#badge_modal .modal-body { border-radius: 0 !important; }
+
+#teaser_modal .close,
+#badge_modal .close { color: var(--aoe-dim) !important; opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   10. FOOTER
+   -------------------------------------------------------------------------- */
+
+body > footer,
+footer {
+  background: var(--aoe-black) !important;
+  border-top: 1px solid var(--aoe-rule);
+}
+
+.text-card-footer {
+  color: var(--aoe-dim) !important;
+  font-size: 11px;
+  letter-spacing: .06em;
+  padding: 24px 0;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   11. RESPONSIVE
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  header .menu { margin-bottom: 36px; }
+  header .menu ul.nav { justify-content: flex-start; gap: 0 22px; }
+  header .menu ul.nav > li > a { padding: 14px 0 !important; }
+  .sidebar_wrapper { margin-top: 44px; }
+  .col-lg-8 .panel-kartra > .panel-heading h1 { font-size: 32px !important; gap: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body *, .aoe-body * { transition: none !important; }
+}
