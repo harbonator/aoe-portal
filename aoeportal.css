@@ -845,22 +845,38 @@ footer {
   body *, .aoe-body * { transition: none !important; }
 }
 
-/* --- Module dropdown: collapse row height --- */
+/* ==========================================================================
+   12. MODULE DROPDOWN - AUTHORITATIVE SIZING
+   Last block in the file, so it overrides everything above it. Replaces the
+   two earlier dropdown patches; do not keep those.
+
+   The rows were tall because the subtitle element renders empty in this
+   portal but still holds a line box open, and several inner wrappers carry
+   their own padding. Rather than chase each one, every descendant is reset
+   and the subtitle is hidden outright.
+   ========================================================================== */
 
 header .menu ul.dropdown-menu.js_menu {
-  max-height: 60vh;
+  max-height: 62vh;
   overflow-y: auto;
+  padding: 0 !important;
+  min-width: 340px;
 }
 
 header .menu ul.dropdown-menu.js_menu > li {
-  position: relative;
-  min-height: 0 !important;
+  display: block !important;
+  position: relative !important;
   height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
   padding: 0 !important;
   margin: 0 !important;
+  border-bottom: 1px solid rgba(38, 38, 38, .7);
 }
 
-/* The click target becomes an invisible overlay instead of a flow element */
+header .menu ul.dropdown-menu.js_menu > li:last-child { border-bottom: none; }
+
+/* Click target becomes an invisible overlay instead of a flow element */
 header .menu ul.dropdown-menu.js_menu > li > a {
   position: absolute !important;
   inset: 0 !important;
@@ -875,62 +891,56 @@ header .menu ul.dropdown-menu.js_menu > li > a {
   z-index: 2;
 }
 
+/* The visible row */
 header .menu ul.dropdown-menu.js_menu > li > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
   padding: 11px 16px !important;
+  margin: 0 !important;
+  height: auto !important;
   min-height: 0 !important;
-  gap: 11px;
+}
+
+/* Reset every descendant so only its own text contributes height */
+header .menu ul.dropdown-menu.js_menu > li > div * {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  line-height: 1.3 !important;
 }
 
 header .menu ul.dropdown-menu.js_menu .js_menu_icon {
-  width: 18px;
-  height: 18px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px !important;
+  width: 18px !important;
 }
 
 header .menu ul.dropdown-menu.js_menu .js_menu_icon i {
   font-size: 15px !important;
-  line-height: 1;
+  color: var(--aoe-y-dim) !important;
 }
 
 header .menu ul.dropdown-menu.js_menu .menu_name,
 header .menu ul.dropdown-menu.js_menu .dropdown_desc {
-  font-size: 13.5px;
-  line-height: 1.3;
-}
-/* --- Module dropdown: kill leftover row height --- */
-
-header .menu ul.dropdown-menu.js_menu > li {
-  display: flex !important;
-  align-items: stretch;
-}
-
-header .menu ul.dropdown-menu.js_menu > li > div {
   flex: 1 1 auto;
-  align-items: center !important;
-  min-height: 0 !important;
-  height: auto !important;
-  padding: 12px 16px !important;
+  font-size: 13.5px !important;
+  color: var(--aoe-mid) !important;
+  text-align: left;
 }
 
-/* Empty subtitle elements were holding a line box open */
-header .menu ul.dropdown-menu.js_menu .menu_subdesc:empty,
-header .menu ul.dropdown-menu.js_menu .dropdown_desc:empty {
-  display: none !important;
-}
+header .menu ul.dropdown-menu.js_menu > li:hover .menu_name { color: var(--aoe-ink) !important; }
 
-header .menu ul.dropdown-menu.js_menu .menu_subdesc {
-  margin: 0 !important;
-  line-height: 1.3;
-}
+/* Empty in this portal, and it was holding each row open */
+header .menu ul.dropdown-menu.js_menu .menu_subdesc { display: none !important; }
 
-/* Any inner wrapper Kartra adds around the text */
-header .menu ul.dropdown-menu.js_menu > li > div > div {
-  min-height: 0 !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-header .menu ul.dropdown-menu.js_menu .menu_name {
-  margin: 0 !important;
-  padding: 0 !important;
+header .menu ul.dropdown-menu.js_menu .glyphicon-ok,
+header .menu ul.dropdown-menu.js_menu .check-mark,
+header .menu ul.dropdown-menu.js_menu [class*="kartraico-check"] {
+  flex: 0 0 auto;
+  margin-left: auto !important;
+  color: var(--aoe-y) !important;
 }
