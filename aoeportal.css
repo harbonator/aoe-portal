@@ -844,3 +844,55 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   body *, .aoe-body * { transition: none !important; }
 }
+
+/* --- Module dropdown: collapse row height --- */
+
+header .menu ul.dropdown-menu.js_menu {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+header .menu ul.dropdown-menu.js_menu > li {
+  position: relative;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* The click target becomes an invisible overlay instead of a flow element */
+header .menu ul.dropdown-menu.js_menu > li > a {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  background: transparent !important;
+  z-index: 2;
+}
+
+header .menu ul.dropdown-menu.js_menu > li > div {
+  padding: 11px 16px !important;
+  min-height: 0 !important;
+  gap: 11px;
+}
+
+header .menu ul.dropdown-menu.js_menu .js_menu_icon {
+  width: 18px;
+  height: 18px;
+}
+
+header .menu ul.dropdown-menu.js_menu .js_menu_icon i {
+  font-size: 15px !important;
+  line-height: 1;
+}
+
+header .menu ul.dropdown-menu.js_menu .menu_name,
+header .menu ul.dropdown-menu.js_menu .dropdown_desc {
+  font-size: 13.5px;
+  line-height: 1.3;
+}
