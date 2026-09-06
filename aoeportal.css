@@ -944,3 +944,66 @@ header .menu ul.dropdown-menu.js_menu [class*="kartraico-check"] {
   margin-left: auto !important;
   color: var(--aoe-y) !important;
 }
+/* ===== Module dropdown: real class names ===== */
+
+header .menu ul.dropdown-menu.js_menu > li > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 10px 16px !important;
+}
+
+header .menu ul.dropdown-menu.js_menu .dropdown_title {
+  font-size: 13.5px !important;
+  line-height: 1.3 !important;
+  color: var(--aoe-mid) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+header .menu ul.dropdown-menu.js_menu > li:hover .dropdown_title {
+  color: var(--aoe-ink) !important;
+}
+
+/* Empty on every lesson, but still holding a line box open */
+header .menu ul.dropdown-menu.js_menu .dropdown_desc {
+  display: none !important;
+}
+
+/* This was three stacked list items, making every row three lines tall */
+header .menu ul.dropdown-menu.js_menu ul.content_status {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 0 0 auto !important;
+  padding: 0 !important;
+  list-style: none !important;
+  flex: 0 0 auto;
+}
+
+header .menu ul.dropdown-menu.js_menu ul.content_status > li {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  line-height: 1 !important;
+}
+
+header .menu ul.dropdown-menu.js_menu ul.content_status i {
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+
+header .menu ul.dropdown-menu.js_menu .kartraico-done { color: var(--aoe-y) !important; }
+header .menu ul.dropdown-menu.js_menu .kartraico-dummy-lock { color: var(--aoe-dim) !important; }
+header .menu ul.dropdown-menu.js_menu .kartraico-dummy-star { color: var(--aoe-dim) !important; }
+
+/* Hidden teaser payload, should never occupy space */
+header .menu ul.dropdown-menu.js_menu .js_teaser_modal_content_front {
+  display: none !important;
+}
+
+header .menu ul.dropdown-menu.js_menu .kartraico-play_circle {
+  font-size: 15px !important;
+  color: var(--aoe-y-dim) !important;
+}
